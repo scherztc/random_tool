@@ -22,3 +22,5 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+sed -ne 's|.*\<A HREF="\(http[^"]*\)".*|\1|p' bookmarks_2_6_14.html > bookmark_url.lst 

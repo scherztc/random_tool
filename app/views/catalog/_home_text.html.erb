@@ -1,0 +1,29 @@
+<div class="jumbotron text-center">
+  <h1 class="jumbotron-heading"><%= t('blacklight.welcome') %></h1>
+</div>
+
+<div id="getting-started">
+  <h2>This is my Random Resource Application</h2>
+
+    <ol>
+      <li><a href="https://github.com/projectblacklight/blacklight/wiki/Indexing-your-data-into-solr">Index your own data</a> into Solr</li>
+      <li><a href="https://github.com/projectblacklight/blacklight/wiki#blacklight-configuration">Configure Blacklight</a> to match your data and user-experience needs</li>
+      <li><a href="https://github.com/projectblacklight/blacklight/wiki#support">Get in touch</a> with your comments, questions, and ideas</li>
+      <li><%= link_to 'List of Resources', resources_path %></li>
+    </ol>
+  </p>
+</div>
+
+<%# This is the same panel shown in the Rails welcome template %>
+<div id="about" class="card">
+  <h2 class='card-header collapsed collapse-toggle' data-toggle="collapse" data-bs-toggle="collapse" data-bs-target="#about-content" data-target="#about-content"><a href="/rails/info/properties">This is a Blacklight and Solr Application</a></h2>
+  <div id="about-content" class="card-body collapse"></div>
+</div>
+
+<script>
+  Blacklight.onLoad(function() {
+    $('#about .card-header').one('click', function() {
+      $($(this).data('target')).load($(this).find('a').attr('href'));
+    });
+  });
+</script>
