@@ -10,9 +10,8 @@ class SolrDocument
   
   field_semantics.merge!(    
                          :title => "title_ssm",
-                         :author => "author_ssm",
-                         :language => "language_ssim",
-                         :format => "format"
+                         :description => "description_ssm",
+                         :url => "url_ssim",
                          )
 
 
