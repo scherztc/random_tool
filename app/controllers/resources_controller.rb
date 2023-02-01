@@ -8,7 +8,13 @@ class ResourcesController < ApplicationController
 
   # GET /resources/1 or /resources/1.json
   def show
+    get_document
+    authz_document
+    get_object
+    get_children
+    get_attachments
   end
+
 
   # GET /resources/new
   def new
@@ -56,7 +62,13 @@ class ResourcesController < ApplicationController
     end
   end
 
+  def get_object
+    @object = SolrService.reify_solr_result(@document)
+  end
+
+
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_resource
       @resource = Resource.find(params[:id])
@@ -66,4 +78,6 @@ class ResourcesController < ApplicationController
     def resource_params
       params.require(:resource).permit(:title, :description, :url)
     end
+
+
 end

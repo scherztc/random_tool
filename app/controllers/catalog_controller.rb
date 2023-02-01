@@ -29,6 +29,9 @@ class CatalogController < ApplicationController
 
     # items to show per page, each number in the array represent another option to choose from.
     #config.per_page = [10,20,50,100]
+   
+    config.per_page = [10,20,50,100]
+    config.default_per_page = 50
 
     # solr field configuration for search results/index views
     config.index.title_field = 'title_tsim'
@@ -163,23 +166,23 @@ class CatalogController < ApplicationController
       }
     end
 
-    config.add_search_field('author') do |field|
+    config.add_search_field('description') do |field|
       field.solr_parameters = {
-        'spellcheck.dictionary': 'author',
-        qf: '${author_qf}',
-        pf: '${author_pf}'
+        'spellcheck.dictionary': 'description',
+        qf: '${description_qf}',
+        pf: '${description_pf}'
       }
     end
 
     # Specifying a :qt only to show it's possible, and so our internal automated
     # tests can test it. In this case it's the same as
     # config[:default_solr_parameters][:qt], so isn't actually neccesary.
-    config.add_search_field('subject') do |field|
+    config.add_search_field('url') do |field|
       field.qt = 'search'
       field.solr_parameters = {
-        'spellcheck.dictionary': 'subject',
-        qf: '${subject_qf}',
-        pf: '${subject_pf}'
+        'spellcheck.dictionary': 'url',
+        qf: '${url_qf}',
+        pf: '${url_pf}'
       }
     end
 
@@ -189,8 +192,8 @@ class CatalogController < ApplicationController
     # except in the relevancy case). Add the sort: option to configure a
     # custom Blacklight url parameter value separate from the Solr sort fields.
     config.add_sort_field 'relevance', sort: 'score desc, pub_date_si desc, title_si asc', label: 'relevance'
-    config.add_sort_field 'year-desc', sort: 'pub_date_si desc, title_si asc', label: 'year'
-    config.add_sort_field 'author', sort: 'author_si asc, title_si asc', label: 'author'
+    #    config.add_sort_field 'url', sort: 'pub_date_si desc, title_si asc', label: 'url'
+    config.add_sort_field 'description', sort: 'description_si asc, title_si asc', label: 'description'
     config.add_sort_field 'title_si asc, pub_date_si desc', label: 'title'
 
     # If there are more than this many search results, no spelling ("did you

@@ -1,0 +1,18 @@
+# app/views/search/index.html.haml
+
+= simple_form_for :search, :method=>:get do |f|
+  = text_field_tag 'q', @q, :style=>"width: 240px;"
+  = f.submit 'Search'
+
+
+- if !@res
+  %hr
+  Not found
+
+
+- else
+  Found #{@res.total}
+  %hr
+  - @res.results.each do |item|
+    = link_to item.name, resource_path(item)
+  %br
