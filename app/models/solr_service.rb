@@ -1,6 +1,11 @@
 class SolrService
   @@connection = false
 
+  def initialize(options = {})
+      @options = { timeout: 120, open_timeout: 120, url: 'http://localhost:8983/solr' }.merge(options)
+  end
+
+
   def self.connect
     @@connection = RSolr.connect(url: "http://localhost:8983/solr/blacklight-core")
     @@connection

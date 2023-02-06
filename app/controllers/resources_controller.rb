@@ -8,11 +8,11 @@ class ResourcesController < ApplicationController
 
   # GET /resources/1 or /resources/1.json
   def show
-    get_document
-    authz_document
-    get_object
-    get_children
-    get_attachments
+#    get_document
+#    authz_document
+#    get_object
+#    get_children
+#    get_attachments
   end
 
 

@@ -19,9 +19,7 @@ gem 'uglifier', '>= 1.3.0'
 #Blacklight and Solr
 #gem 'solr_wrapper'
 gem 'blacklight', ">= 6.1"
-gem 'sunspot_rails'
 gem 'progress_bar'
-gem 'sunspot_solr'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'

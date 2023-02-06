@@ -1,4 +1,14 @@
-class Resource < ApplicationRecord
+require 'rsolr'
+
+class Resource < ActiveRecord::Base
+
+#  include Blacklight::Solr::Service
+
+#  require 'rsolr'
+
+#  extend ActiveSupport::Concern
+#  extend ActiveSupport::Autoload
+  
   validates :url, presence: true 
   
   after_commit :index_data_in_solr, on: [:create, :update]
@@ -8,17 +18,11 @@ class Resource < ApplicationRecord
 #  before_destroy :remove_from_index
 
   #  attr_accessible :title_index
-  attr_accessor :title_index
-
-  # sunspot solr
-  searchable do
-      text :title, :description, :url
-  end
-
+  #  attr_accessor :title
 
   def to_solr
     {
-      "title" => title, "description" => description, "url" => url
+      "id" => id, "title" => title, "description" => description, "url" => url
     }
   end
 
