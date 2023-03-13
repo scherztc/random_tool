@@ -3,6 +3,8 @@ class CatalogController < ApplicationController
 
   include Blacklight::Catalog
 
+  ActionController::Parameters.permit_all_parameters = true
+
   configure_blacklight do |config|
     ## Class for sending and receiving requests from a search index
     # config.repository_class = Blacklight::Solr::Repository
@@ -18,7 +20,8 @@ class CatalogController < ApplicationController
 
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = {
-      rows: 100
+      :qt => 'search',
+      :rows => 100
     }
 
     # solr path which will be added to solr base url before the other solr params.
@@ -80,7 +83,7 @@ class CatalogController < ApplicationController
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
     config.add_facet_field 'title', label: 'Title'
-    config.add_facet_field 'description', label: 'Description', single: true
+    config.add_facet_field 'description', label: 'Description'
     config.add_facet_field 'url', label: 'URL'
 
     config.add_facet_field 'example_pivot_field', label: 'Pivot Field', pivot: ['format', 'language_ssim'], collapsing: true
@@ -134,34 +137,32 @@ class CatalogController < ApplicationController
     # case for a BL "search field", which is really a dismax aggregate
     # of Solr search fields.
 
-    config.add_search_field('title') do |field|
+    # config.add_search_field('title') do |field|
       # solr_parameters hash are sent to Solr as ordinary url query params.
-      field.solr_parameters = {
-        'spellcheck.dictionary': 'title',
-        qf: '${title_qf}',
-        pf: '${title_pf}'
-      }
-    end
+    #  field.solr_parameters = {
+    #    q: '${title_qf}',
+    #    pf: '${title_pf}'
+    #  }
+    # end
 
-    config.add_search_field('description') do |field|
-      field.solr_parameters = {
-        'spellcheck.dictionary': 'description',
-        qf: '${description_qf}',
-        pf: '${description_pf}'
-      }
-    end
+    # config.add_search_field('description') do |field|
+    #  field.solr_parameters = {
+    #    q: '${description_qf}',
+    #    pf: '${description_pf}'
+    #  }
+    # end
 
     # Specifying a :qt only to show it's possible, and so our internal automated
     # tests can test it. In this case it's the same as
     # config[:default_solr_parameters][:qt], so isn't actually neccesary.
-    config.add_search_field('url') do |field|
-      field.qt = 'search'
-      field.solr_parameters = {
-        'spellcheck.dictionary': 'url',
-        qf: '${url_qf}',
-        pf: '${url_pf}'
-      }
-    end
+
+    # config.add_search_field('url') do |field|
+    #  field.qt = 'search'
+    #  field.solr_parameters = {
+    #    q: '${url_qf}',
+    #    pf: '${url_pf}'
+    #  }
+    # end
 
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the Solr field to sort by and
@@ -170,8 +171,8 @@ class CatalogController < ApplicationController
     # custom Blacklight url parameter value separate from the Solr sort fields.
     config.add_sort_field 'relevance', sort: 'score desc, title asc', label: 'relevance'
     #    config.add_sort_field 'url', sort: 'pub_date_si desc, title_si asc', label: 'url'
-    config.add_sort_field 'description', sort: 'description_si asc, title_si asc', label: 'description'
-    config.add_sort_field 'title', sort: 'title asc', label: 'title'
+    # config.add_sort_field 'description', sort: 'description_si asc, title_si asc', label: 'description'
+    # config.add_sort_field 'title', sort: 'title asc', label: 'title'
 
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
