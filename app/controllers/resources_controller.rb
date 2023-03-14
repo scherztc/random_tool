@@ -76,6 +76,21 @@ class ResourcesController < ApplicationController
     redirect_to root_path, notice: "Check Tab for Random Resource."
   end
 
+  def chatgpt_image
+#     client = Openai::Client.new
+     @page = Resource.all.sample.url[0...-2]
+     @request_body = {
+        prompt: '@page',
+        n: 1,                  # between 1 and 10
+        size: '1024x1024',     # 256x256, 512x512, or 1024x1024
+        response_format: 'url' # url or b64_json
+     }
+     @response = Openai::Client.images.create(@request_body)
+     @data = @response["data"].first["url"]
+     Launchy.open(@data)
+     redirect_to root_path, notice: "Check Tab for ChatGPT Image."
+  end
+
   private
 
     # Use callbacks to share common setup or constraints between actions.
