@@ -20,6 +20,8 @@ gem 'uglifier', '>= 1.3.0'
 #gem 'solr_wrapper'
 gem 'blacklight', ">= 6.1"
 gem 'progress_bar'
+gem 'launchy'
+gem 'openai-client'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'

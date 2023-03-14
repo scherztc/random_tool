@@ -1,4 +1,7 @@
 class ResourcesController < ApplicationController
+
+  require 'launchy'
+
   before_action :set_resource, only: %i[ show edit update destroy ]
 
   # GET /resources or /resources.json
@@ -66,6 +69,12 @@ class ResourcesController < ApplicationController
     @object = SolrService.reify_solr_result(@document)
   end
 
+  def random_output
+#     Resource.order(Arel.sql('RANDOM()')).first.url
+    @page = Resource.all.sample.url[0...-2]
+    Launchy.open(@page)
+    redirect_to root_path, notice: "Check Tab for Random Resource."
+  end
 
   private
 

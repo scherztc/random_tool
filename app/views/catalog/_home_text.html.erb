@@ -10,6 +10,8 @@
       <li><a href="https://github.com/projectblacklight/blacklight/wiki#blacklight-configuration">Configure Blacklight</a> to match your data and user-experience needs</li>
       <li><a href="https://github.com/projectblacklight/blacklight/wiki#support">Get in touch</a> with your comments, questions, and ideas</li>
       <li><%= link_to 'List of Resources', resources_path %></li>
+      <li><%= link_to 'Random Resource', random_output_path %></li>
+      <li><%= button_to( "Random Resource", random_output_path, :method => :get ) %></li>
     </ol>
   </p>
 </div>

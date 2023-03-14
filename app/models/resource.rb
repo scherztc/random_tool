@@ -36,7 +36,11 @@ class Resource < ActiveRecord::Base
     SolrService.commit
   end
 
-
+#  def random_output
+#    Resource.order(Arel.sql('RANDOM()')).first.url
+#    @page = Resource.all.sample.url
+#    render :text => "<script>parent.location.href='@page';</script>"
+#  end
 
 
 #  attr_accessible :title_index
