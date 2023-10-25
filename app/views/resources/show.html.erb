@@ -2,7 +2,7 @@
 
 <p>
   <strong>Title:</strong>
-  <%= @resource.title %>
+  <%= link_to @resource.title, @resource.url, target: '_blank' %>
 </p>
 
 <p>
@@ -12,7 +12,7 @@
 
 <p>
   <strong>Url:</strong>
-  <%= @resource.url %>
+  <%= link_to @resource.url, @resource.url, target: '_blank' %>
 </p>
 
 <%= link_to 'Edit', edit_resource_path(@resource) %> |
