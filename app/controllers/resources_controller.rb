@@ -78,7 +78,7 @@ class ResourcesController < ApplicationController
 
   def chatgpt_image
 #     client = Openai::Client.new
-     @page = Resource.all.sample.url[0...-2]
+     @page = Resource.all.sample.title
      @request_body = {
         prompt: '@page',
         n: 1,                  # between 1 and 10
