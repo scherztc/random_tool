@@ -20,7 +20,7 @@
         <td><%= link_to 'Destroy', resource, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <td><%= resource.title %></td>
         <td><%= resource.description %></td>
-        <td><%= link_to resource.url, resource.url %></td>
+        <td><%= link_to resource.url, resource.url, target: '_blank' %></td>
       </tr>
     <% end %>
   </tbody>
