@@ -8,9 +8,9 @@
 
   <fields>
     <field name="id" type="string" stored="true" indexed="true" multiValued="false" required="true"/>
-    <field name="title" type="string" stored="true" indexed="true" multiValued="false" />
-    <field name="description" type="string" stored="true" indexed="true" multiValued="false" />
-    <field name="url" type="string" stored="true" indexed="true" multiValued="false" />    
+    <field name="title" type="text_general" stored="true" indexed="true" multiValued="false" />
+    <field name="description" type="text_general" stored="true" indexed="true" multiValued="false" />
+    <field name="url" type="text_general" stored="true" indexed="true" multiValued="false" />    
     <field name="_version_" type="long"     indexed="true"  stored="true"/>
     <field name="timestamp" type="date" indexed="true" stored="true" default="NOW" multiValued="false"/>
     <field name="lat" type="tdouble" stored="true" indexed="true" multiValued="false"/>
@@ -383,6 +383,18 @@
         <tokenizer class="solr.PathHierarchyTokenizerFactory" delimiter="/" />
       </analyzer>
     </fieldType>
+
+    <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
+    <analyzer type="index">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="15"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+  </fieldType>
 
   </types>
 

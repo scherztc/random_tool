@@ -1,26 +1,28 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This Solr/Blacklight/RoR Application is used to organize the Resources that come from my Bookmark file.
+
+It can
+
+Import URLs from Bookmark
+Search all the Resources in the Bookmark
 
 Things you may want to cover:
 
-* Ruby version
+* SOLR
 
-* System dependencies
+solr_wrapper
+bundle exec rake tool:reindex 
 
-* Configuration
+* Rails Sever
 
-* Database creation
+rails server
 
-* Database initialization
+* Import URLs
 
-* How to run the test suite
+rails db:seed
 
-* Services (job queues, cache servers, search engines, etc.)
+* Strips URLs from Bookmark File
 
-* Deployment instructions
+sed -ne 's|.*\<A HREF="\(http[^"]*\)".*|\1|p' bookmarks_2_6_14.html > bookmark_url.lst
 
-* ...
-
-sed -ne 's|.*\<A HREF="\(http[^"]*\)".*|\1|p' bookmarks_2_6_14.html > bookmark_url.lst 
