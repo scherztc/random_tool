@@ -71,7 +71,7 @@ class ResourcesController < ApplicationController
 
   def random_output
 #     Resource.order(Arel.sql('RANDOM()')).first.url
-    @page = Resource.all.sample.url[0...-2]
+    @page = Resource.all.sample.url.strip
     Launchy.open(@page)
     redirect_to root_path, notice: "Check Tab for Random Resource."
   end
