@@ -21,6 +21,9 @@ rails server
 * Import URLs
 
 rails db:seed
+rake bookmarks:import
+
+* Export URLs
 
 * Strips URLs from Bookmark File
 
