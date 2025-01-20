@@ -12,6 +12,7 @@ class SolrDocument
                          :title => "title_ssm",
                          :description => "description_ssm",
                          :url => "url_ssim",
+                         :category => "category_ssm",
                          )
 
 

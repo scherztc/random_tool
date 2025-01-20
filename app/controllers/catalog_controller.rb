@@ -38,6 +38,7 @@ class CatalogController < ApplicationController
     config.index.title_field = 'title'
     config.index.description_field = 'description'
     config.index.url_field = 'url'
+    config.index.category_field = 'category'
 
     config.add_results_document_tool(:bookmark, partial: 'bookmark_control', if: :render_bookmarks_control?)
 
@@ -57,6 +58,7 @@ class CatalogController < ApplicationController
     config.show.title_field = 'title'
     config.show.description_field = 'description'
     config.show.url_field = 'url'
+    config.show.category_field = 'category'
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
@@ -82,9 +84,7 @@ class CatalogController < ApplicationController
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
-    config.add_facet_field 'title', label: 'Title'
-    config.add_facet_field 'description', label: 'Description'
-    config.add_facet_field 'url', label: 'URL'
+    config.add_facet_field 'category', label: 'Category'
 
     # config.add_facet_field 'example_pivot_field', label: 'Pivot Field', pivot: ['format', 'language_ssim'], collapsing: true
 
@@ -105,12 +105,14 @@ class CatalogController < ApplicationController
     config.add_index_field 'title', label: 'Title'
     config.add_index_field 'description', label: 'Description'
     config.add_index_field 'url', label: 'URL'
+    config.add_index_field 'category', label: 'Category'
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
     config.add_show_field 'title', label: 'Title'
     config.add_show_field 'url', label: 'URL'
     config.add_show_field 'description', label: 'Description'
+    config.add_show_field 'category', label: 'Category'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

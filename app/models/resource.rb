@@ -10,7 +10,7 @@ class Resource < ActiveRecord::Base
 #  extend ActiveSupport::Autoload
   
   validates :url, presence: true 
-  
+
   after_commit :index_data_in_solr, on: [:create, :update]
   before_destroy :remove_data_from_solr
 
@@ -22,7 +22,7 @@ class Resource < ActiveRecord::Base
 
   def to_solr
     {
-      "id" => id, "title" => title, "description" => description, "url" => url
+      "id" => id, "title" => title, "description" => description, "url" => url, "category" => category
     }
   end
 

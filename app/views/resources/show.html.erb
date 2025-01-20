@@ -15,5 +15,10 @@
   <%= link_to @resource.url, @resource.url, target: '_blank' %>
 </p>
 
+<p>
+  <strong>Category:</strong>
+  <%= @resource.category %>
+</p>
+
 <%= link_to 'Edit', edit_resource_path(@resource) %> |
 <%= link_to 'Back', resources_path %>

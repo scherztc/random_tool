@@ -9,6 +9,7 @@
       <th>Title</th>
       <th>Description</th>
       <th>Url</th>
+      <th>Category</th>
     </tr>
   </thead>
 
@@ -21,6 +22,7 @@
         <td><%= resource.title %></td>
         <td><%= resource.description %></td>
         <td><%= link_to resource.url, resource.url, target: '_blank' %></td>
+        <td><%= resource.category %></td>
       </tr>
     <% end %>
   </tbody>
