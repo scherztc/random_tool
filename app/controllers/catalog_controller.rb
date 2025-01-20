@@ -39,6 +39,7 @@ class CatalogController < ApplicationController
     config.index.description_field = 'description'
     config.index.url_field = 'url'
     config.index.category_field = 'category'
+    config.index.partials = [:index_header, :index, :actions]
 
     config.add_results_document_tool(:bookmark, partial: 'bookmark_control', if: :render_bookmarks_control?)
 
