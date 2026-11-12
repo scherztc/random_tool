@@ -1,3 +1,5 @@
+# Gemfile for the random_tool Rails/Blacklight application.
+# Defines runtime and development dependencies managed by Bundler.
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
