@@ -1,7 +1,5 @@
 class ResourcesController < ApplicationController
 
-  require 'launchy'
-
   before_action :set_resource, only: %i[ show edit update destroy ]
 
   # GET /resources or /resources.json
@@ -70,25 +68,30 @@ class ResourcesController < ApplicationController
   end
 
   def random_output
-#     Resource.order(Arel.sql('RANDOM()')).first.url
-    @page = Resource.all.sample.url.strip
-    Launchy.open(@page)
-    redirect_to root_path, notice: "Check Tab for Random Resource."
+    resource = Resource.order(Arel.sql('RANDOM()')).first
+
+    if resource&.url.present?
+      redirect_to resource.url.strip, allow_other_host: true
+    else
+      redirect_to root_path, alert: 'No resource URL is available.'
+    end
   end
 
   def chatgpt_image
-#     client = Openai::Client.new
-     @page = Resource.all.sample.title
-     @request_body = {
-        prompt: '@page',
-        n: 1,                  # between 1 and 10
-        size: '1024x1024',     # 256x256, 512x512, or 1024x1024
-        response_format: 'url' # url or b64_json
-     }
-     @response = Openai::Client.images.create(@request_body)
-     @data = @response["data"].first["url"]
-     Launchy.open(@data)
-     redirect_to root_path, notice: "Check Tab for ChatGPT Image."
+    resource = Resource.order(Arel.sql('RANDOM()')).first
+
+    unless resource&.title.present?
+      redirect_to root_path, alert: 'No resource title is available for image generation.'
+      return
+    end
+
+    image_url = generate_image_url(resource.title)
+
+    if image_url.present?
+      redirect_to image_url, allow_other_host: true
+    else
+      redirect_to root_path, alert: 'Image generation did not return a URL.'
+    end
   end
 
   private
@@ -101,6 +104,21 @@ class ResourcesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def resource_params
       params.require(:resource).permit(:title, :description, :url, :category)
+    end
+
+    def generate_image_url(prompt)
+      request_body = {
+        prompt: prompt,
+        n: 1,
+        size: '1024x1024',
+        response_format: 'url'
+      }
+
+      response = Openai::Client.images.create(request_body)
+      response.fetch('data', []).first&.fetch('url', nil)
+    rescue KeyError, StandardError => e
+      Rails.logger.error("OpenAI image generation failed: #{e.class}: #{e.message}")
+      nil
     end
 
 
